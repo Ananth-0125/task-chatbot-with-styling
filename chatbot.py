@@ -1,14 +1,11 @@
 from google import genai
-from dotenv import load_dotenv
-import os
+import streamlit as st
 
-load_dotenv()
-
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 def ask(prompt):
-    r = client.models.generate_content(
+    response = client.models.generate_content(
         model="gemini-2.5-flash",
         contents=prompt
     )
-    return r.text
+    return response.text
